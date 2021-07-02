@@ -112,6 +112,7 @@ button.grey,
     background: var(--grey-light);
     color: var(--grey-dark);
 }
+
 /* HEADER */
 .content header{
     width: 80%;

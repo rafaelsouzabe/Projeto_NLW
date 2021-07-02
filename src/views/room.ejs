@@ -30,12 +30,12 @@
                     <img src = "/images/logo.png" alt="Rocket.Q Logo"/>
                 </a>
                 <div class="buttons">
-                    <div class="button outlined" id="room-id" data-id="323243">
-                        #323243
-                        <img src="/images/cod-img.png" alt="Copiar numero">
+                    <div class="button outlined" id="room-id" data-id="<%= roomID %>">
+                        #<%= roomID %>
+                        <img src="/images/cod-img.png" alt="Copiar numero da sala">
                     </div>
-                    <a href="#" class="button">
-                        <img src="/images/users1_branco.png" alt="Cria sala">
+                    <a href="/create-pass" class="button">
+                        <img src="/images/users1_branco.png" alt="Criar uma sala">
                         Criar Sala
                     </a>
                 </div>
@@ -44,7 +44,7 @@
             <main>
                 <section id = "question-form">
                     <h2>Faça sua pergunta</h2>
-                    <form actions="">
+                    <form action="/question/create/<%= roomID %>" method="POST">
                         <label class="sr-only">O que você quer perguntar?</label> <!-- para acessibilidade*\ -->
                         <textarea name="question" id="question" placeholder="O que você quer perguntar?"></textarea>
 
@@ -60,97 +60,60 @@
 
                 <section id="questions">
                     <h2 class="sr-only"> Perguntas da comunidade</h2>
-
                     <div class="questions">  <!-- toda seçao de questao -->
+                        <% if(isNoQuestions){ %>
 
-                        <div class="question-wrapper"> <!--eh uma questao -->
-                            <div class="question-content"> <!-- conteudo dentro de um quadrado -->
-                                <div class="user"> <!-- fica dentro do content eh o avatar -->
-                                    <img src="/images/avatar1.png" alt="Avatar">
-                                </div>
-                                <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
-                                    <p> Qual a diferença entre const, var e let no JavaScript?</p>
-                                </div>
-                            </div>
-                            <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
-                                    <a href="#" class="check" data-id="2">
-                                        <img src="/images/check.png" alt="Marcar como lida">
-                                        Marcar como lida
-                                    </a>
-                                    <a href="#" class="delete" data-id="2">
-                                        <img src="/images/excluir.png" alt="Excluir">
-                                        Excluir
-                                    </a>
+                            <%- include('parts/no-question') %>
+                        <% } %>
 
-                            </div>
-                            
-                        </div>
-                        <div class="question-wrapper"> <!--eh uma questao -->
-                            <div class="question-content"> <!-- conteudo dentro de um quadrado -->
-                                <div class="user"> <!-- fica dentro do content eh o avatar -->
-                                    <img src="/images/avatar1.png" alt="Avatar">
+                        <% questions.forEach(question =>{ %>
+                            <div class="question-wrapper"> <!--eh uma questao -->
+                                <div class="question-content"> <!-- conteudo dentro de um quadrado -->
+                                    <div class="user"> <!-- fica dentro do content eh o avatar -->
+                                        <img src="/images/avatar1.png" alt="Avatar">
+                                    </div>
+                                    <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
+                                        <p><%= question.title %></p>
+                                    </div>
                                 </div>
-                                <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
-                                    <p> O que é JavaScript?</p>
-                                </div>
-                            </div>
-                            <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
-                                    <a href="#" class="check" data-id="3">
-                                        <img src="/images/check.png" alt="Marcar como lida">
-                                        Marcar como lida
-                                    </a>
-                                    <a href="#" class="delete" data-id="3">
-                                        <img src="/images/excluir.png" alt="Excluir">
-                                        Excluir
-                                    </a>
-                            </div>
-                        </div>
+                                <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
+                                        <a href="#" class="check" data-id="<%= question.id %>">
+                                            <img src="/images/check.png" alt="Marcar como lida">
+                                            Marcar como lida
+                                        </a>
+                                        <a href="#" class="delete" data-id="<%= question.id %>">
+                                            <img src="/images/excluir.png" alt="Excluir">
+                                            Excluir
+                                        </a>
 
-                        <div class="question-wrapper"> <!--eh uma questao -->
-                            <div class="question-content"> <!-- conteudo dentro de um quadrado -->
-                                <div class="user"> <!-- fica dentro do content eh o avatar -->
-                                    <img src="/images/avatar1.png" alt="Avatar">
                                 </div>
-                                <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
-                                    <p> Testando a parte de perguntas, do prototipo da NLW, espero que der tudo certo.
-                                        Testando uma mensagem longa, para ver como fica la na caixas de perguntas. Analisar se irar desformatar.
-                                        Testando a parte de perguntas, do prototipo da NLW, espero que der tudo certo.
-                                        Testando uma mensagem longa, para ver como fica la na caixas de perguntas. Analisar se irar desformatar.
-                                    </p>
-                                </div>
+                                
                             </div>
-                            <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
-                                    <a href="#" class="check" data-id="4">
-                                        <img src="/images/check.png" alt="Marcar como lida">
-                                        Marcar como lida
-                                    </a>
-                                    <a href="#" class="delete" data-id="4">
-                                        <img src="/images/excluir.png" alt="Excluir">
-                                        Excluir
-                                    </a>
-
-                            </div>
-                        </div>
 
 
-                        <div class="question-wrapper read"> <!--eh uma questao -->
-                            <div class="question-content"> <!-- conteudo dentro de um quadrado -->
-                                <div class="user"> <!-- fica dentro do content eh o avatar -->
-                                    <img src="/images/avatar1.png" alt="Avatar">
+                        <% }); %>
+
+                        <% questionsRead.forEach(questionRead => { %>
+                            <div class="question-wrapper read"> <!--eh uma questao -->
+                                <div class="question-content"> <!-- conteudo dentro de um quadrado -->
+                                    <div class="user"> <!-- fica dentro do content eh o avatar -->
+                                        <img src="/images/avatar1.png" alt="Avatar">
+                                    </div>
+                                    <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
+                                        <p> <%= questionRead.title %></p>
+                                    </div>
                                 </div>
-                                <div class="question"> <!-- A propria questao/ comentario que fica dentro do content -->
-                                    <p> O que é Typescript?</p>
+                                <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
+    
+                                        <a href="#" class="delete" data-id="<%= questionRead.id %>">
+                                            <img src="/images/excluir.png" alt="Excluir">
+                                            Excluir
+                                        </a>
+    
                                 </div>
                             </div>
-                            <div class="actions"> <!-- so os botoes de marcar como lida e excluir -->
+                        <% }); %>
 
-                                    <a href="#" class="delete" data-id="1">
-                                        <img src="/images/excluir.png" alt="Excluir">
-                                        Excluir
-                                    </a>
-
-                            </div>
-                        </div>
                     </div>
                 </section>
             </main>

@@ -18,12 +18,14 @@
 #room header .buttons .button:nth-child(1){
     margin-right: .8rem;
     padding: 1.3rem 1.6rem;
+    
 }
 
 #room header .buttons .button:nth-child(1) img{
     margin-left: 1.16rem;
     width: 2rem;
     height: 2rem;
+    
 }
 
 #room header .button:nth-child(2){
@@ -90,6 +92,7 @@
     height: auto;
     padding: .8rem 2.4rem;
     line-height: 2.4rem;
+    
 }
 
 .question-wrapper{
@@ -152,4 +155,31 @@
 .question-wrapper.read .question-content .user{
     background: var(--grey-blue) ;
 
+}
+
+/* No question */
+.no-questions{
+    text-align: center;
+    margin-top: 5.2rem;
+}
+
+.no-questions img{
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.no-questions p{
+    font-family:'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+
+}
+
+.no-questions p + p{
+    font-family:'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-top: 1.3rem;
+    line-height: 1.9rem;
+    color: var(--grey-blue);
 }
